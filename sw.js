@@ -1,6 +1,8 @@
-const VERSION = "v2";
-const CACHE_NAME = `period-tracker-${VERSION}`;
 var GHPATH = '/cycletracker';
+var APP_PREFIX = 'period-tracker-';
+const VERSION = "v3";
+const CACHE_NAME = `APP_PREFIX${VERSION}`;
+
 
 const APP_STATIC_RESOURCES = [
   `${GHPATH}/cycletracker/`,
@@ -12,50 +14,44 @@ const APP_STATIC_RESOURCES = [
   `${GHPATH}/cycletracker/tire.svg`,
 ];
 
-self.addEventListener("install", (event) => {
-  event.waitUntil(
-    (async () => {
-      const cache = await caches.open(CACHE_NAME);
-      cache.addAll(APP_STATIC_RESOURCES);
-    })(),
-  );
-});
-
-self.addEventListener("activate", (event) => {
-  event.waitUntil(
-    (async () => {
-      const names = await caches.keys();
-      await Promise.all(
-        names.map((name) => {
-          if (name !== CACHE_NAME) {
-            return caches.delete(name);
-          }
-        }),
-      );
-      await clients.claim();
-    })(),
-  );
-});
-
-self.addEventListener("fetch", (event) => {
-  // when seeking an HTML page
-  if (event.request.mode === "navigate") {
-    // Return to the index.html page
-    event.respondWith(caches.match("/"));
-    return;
-  }
-
-  // For every other request type
-  event.respondWith(
-    (async () => {
-      const cache = await caches.open(CACHE_NAME);
-      const cachedResponse = await cache.match(event.request.url);
-      if (cachedResponse) {
-        // Return the cached response if it's available.
-        return cachedResponse;
+// var CACHE_NAME = APP_PREFIX + VERSION
+self.addEventListener('fetch', function (e) {
+  console.log('Fetch request : ' + e.request.url);
+  e.respondWith(
+    caches.match(e.request).then(function (request) {
+      if (request) { 
+        console.log('Responding with cache : ' + e.request.url);
+        return request
+      } else {       
+        console.log('File is not cached, fetching : ' + e.request.url);
+        return fetch(e.request)
       }
-      // Respond with a HTTP 404 response status.
-      return new Response(null, { status: 404 });
-    })(),
-  );
-});
+    })
+  )
+})
+
+self.addEventListener('install', function (e) {
+  e.waitUntil(
+    caches.open(CACHE_NAME).then(function (cache) {
+      console.log('Installing cache : ' + CACHE_NAME);
+      return cache.addAll(URLS)
+    })
+  )
+})
+
+self.addEventListener('activate', function (e) {
+  e.waitUntil(
+    caches.keys().then(function (keyList) {
+      var cacheWhitelist = keyList.filter(function (key) {
+        return key.indexOf(APP_PREFIX)
+      })
+      cacheWhitelist.push(CACHE_NAME);
+      return Promise.all(keyList.map(function (key, i) {
+        if (cacheWhitelist.indexOf(key) === -1) {
+          console.log('Deleting cache : ' + keyList[i] );
+          return caches.delete(keyList[i])
+        }
+      }))
+    })
+  )
+})
