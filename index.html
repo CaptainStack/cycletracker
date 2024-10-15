@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width" />
     <title>Cycle Tracker</title>
     <link rel="stylesheet" href="style.css" />
-    <link rel="manifest" href="https://captainstack.github.io/cycletracker/tracker.webmanifest" />
+    <link rel="canonical" href="https://captainstack.github.io/cycletracker/" />
+    <link rel="manifest" href="/cycletracker/tracker.webmanifest" />
     <link rel="icon" href="circle.svg" />
   </head>
   <body>
@@ -29,10 +30,15 @@
     <section id="past-periods"></section>
     <script src="app.js" defer></script>
     <!-- Register the app's service worker. -->
-    <script>
+    <!-- <script>
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("https://captainstack.github.io/cycletracker/sw.js");
       }
-    </script>
+    </script> -->
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register('/cycletracker/sw.js', {scope: '/cycletracker/'});
+      }
+  </script>
   </body>
 </html>
