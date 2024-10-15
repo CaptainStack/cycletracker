@@ -2,11 +2,11 @@ const VERSION = "v1";
 const CACHE_NAME = `period-tracker-${VERSION}`;
 
 const APP_STATIC_RESOURCES = [
-  "./cycletracker/",
-  "./cycletracker/index.html",
-  "./cycletracker/style.css",
-  "./cycletracker/app.js",
-  "./cycletracker/icon-512x512.png",
+  "https://captainstack.github.io/cycletracker/",
+  "https://captainstack.github.io/cycletracker/index.html",
+  "https://captainstack.github.io/cycletracker/style.css",
+  "https://captainstack.github.io/cycletracker/app.js",
+  "https://captainstack.github.io/cycletracker/icon-512x512.png",
 ];
 
 self.addEventListener("install", (event) => {
