@@ -7,7 +7,9 @@ const APP_STATIC_RESOURCES = [
   `${GHPATH}/cycletracker/index.html`,
   `${GHPATH}/cycletracker/style.css`,
   `${GHPATH}/cycletracker/app.js`,
-  `${GHPATH}/cycletracker/icon-512x512.png`,
+  `${GHPATH}/cycletracker/wheel.svg`,
+  `${GHPATH}/cycletracker/circle.svg`,
+  `${GHPATH}/cycletracker/tire.svg`,
 ];
 
 self.addEventListener("install", (event) => {
