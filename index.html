@@ -36,7 +36,7 @@
       }
     </script> -->
     <script>
-      if ("serviceWorker" in navigator) {
+      if (navigator.serviceWorker) {
         navigator.serviceWorker.register('/cycletracker/sw.js', {scope: '/cycletracker/'});
       }
   </script>
