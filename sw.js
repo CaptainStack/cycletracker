@@ -1,17 +1,17 @@
 var GHPATH = '/cycletracker';
 var APP_PREFIX = 'period-tracker-';
-const VERSION = "v3";
+const VERSION = "v4";
 const CACHE_NAME = `APP_PREFIX${VERSION}`;
 
 
 const APP_STATIC_RESOURCES = [
-  `${GHPATH}/cycletracker/`,
-  `${GHPATH}/cycletracker/index.html`,
-  `${GHPATH}/cycletracker/style.css`,
-  `${GHPATH}/cycletracker/app.js`,
-  `${GHPATH}/cycletracker/wheel.svg`,
-  `${GHPATH}/cycletracker/circle.svg`,
-  `${GHPATH}/cycletracker/tire.svg`,
+  `${GHPATH}/`,
+  `${GHPATH}/index.html`,
+  `${GHPATH}/style.css`,
+  `${GHPATH}/app.js`,
+  `${GHPATH}/wheel.svg`,
+  `${GHPATH}/circle.svg`,
+  `${GHPATH}/tire.svg`,
 ];
 
 // var CACHE_NAME = APP_PREFIX + VERSION
